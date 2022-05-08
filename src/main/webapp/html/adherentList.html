@@ -1,0 +1,75 @@
+<!-- IMPORT MODULE DETAIL -->
+<!-- 
+
+	Module : 	adherentList
+	
+	Links : 	adherentEdit
+					/adherents/{id}
+.				
+	
+	Nesteds : 	
+				
+-->
+<!-- /IMPORT MODULE DETAIL -->
+<div ng-controller="adherentListController">
+	
+	<h1>adherentList</h1>
+	
+	<!-- SEARCH FORM -->
+	<div class="well">
+	    <form name="form_search" class="container-fluid">
+			<div class="row">
+				<div class="col-sm-3">
+					<label for="email">Email</label>
+				</div>
+				<div class="col-sm-9 form-group" >
+					<input type="text" ng-model="search.email" class="form-control" name="email" id="email" >
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3">
+					<label for="name">Name</label>
+				</div>
+				<div class="col-sm-9 form-group" >
+					<input type="text" ng-model="search.name" class="form-control" name="name" id="name" >
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3">
+					<label for="phone">Phone</label>
+				</div>
+				<div class="col-sm-9 form-group" >
+					<input type="number" ng-model="search.phone" class="form-control" name="phone" id="phone" >
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	<!-- TABLE -->
+	<table class="table table-condensed table-striped table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>_id</th>
+				<th>email</th>
+				<th>name</th>
+				<th>phone</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in list | filter: {  email:search.email,  name:search.name,  phone:search.phone,  }">
+				<td ng-bind="item._id" ng-link="/adherents/{{item._id}}"></td>
+				<td ng-bind="item.email"></td>
+				<td ng-bind="item.name"></td>
+				<td ng-bind="item.phone"></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<div class="mb-20" ng-if="list.$resolved && (list | filter :{   email:search.email,  name:search.name,  phone:search.phone,  }).length == 0">
+        <b>No result found</b>
+    </div>
+
+	<!-- BUTTON -->
+	<button class="btn btn-primary" ng-link="/adherents/new">New</button>
+	
+</div>

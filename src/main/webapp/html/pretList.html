@@ -1,0 +1,85 @@
+<!-- IMPORT MODULE DETAIL -->
+<!-- 
+
+	Module : 	pretList
+	
+	Links : 	pretEdit
+					/prets/{id}
+.				
+	
+	Nesteds : 	
+				
+-->
+<!-- /IMPORT MODULE DETAIL -->
+<div ng-controller="pretListController">
+	
+	<h1>pretList</h1>
+	
+	<!-- SEARCH FORM -->
+	<div class="well">
+	    <form name="form_search" class="container-fluid">
+			<div class="row">
+				<div class="col-sm-3">
+					<label for="date">Date</label>
+				</div>
+				<div class="col-sm-9 form-group" >
+					<input type="date" ng-model="search.date" class="form-control" name="date" id="date" >
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3">
+					<label for="date_retour">Date_retour</label>
+				</div>
+				<div class="col-sm-9 form-group" >
+					<input type="date" ng-model="search.date_retour" class="form-control" name="date_retour" id="date_retour" >
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3">
+					<label for="id_adherent">Id_adherent</label>
+				</div>
+				<div class="col-sm-9 form-group" >
+					<input type="number" ng-model="search.id_adherent" class="form-control" name="id_adherent" id="id_adherent" >
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3">
+					<label for="id_livre">Id_livre</label>
+				</div>
+				<div class="col-sm-9 form-group" >
+					<input type="number" ng-model="search.id_livre" class="form-control" name="id_livre" id="id_livre" >
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	<!-- TABLE -->
+	<table class="table table-condensed table-striped table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>_id</th>
+				<th>date</th>
+				<th>date_retour</th>
+				<th>id_adherent</th>
+				<th>id_livre</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in list | filter: {  date:dateFilter(search.date),  date_retour:dateFilter(search.date_retour),  id_adherent:search.id_adherent,  id_livre:search.id_livre,  }">
+				<td ng-bind="item._id" ng-link="/prets/{{item._id}}"></td>
+				<td ng-bind="item.date | date"></td>
+				<td ng-bind="item.date_retour | date"></td>
+				<td ng-bind="item.id_adherent"></td>
+				<td ng-bind="item.id_livre"></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<div class="mb-20" ng-if="list.$resolved && (list | filter :{   date:dateFilter(search.date),  date_retour:dateFilter(search.date_retour),  id_adherent:search.id_adherent,  id_livre:search.id_livre,  }).length == 0">
+        <b>No result found</b>
+    </div>
+
+	<!-- BUTTON -->
+	<button class="btn btn-primary" ng-link="/prets/new">New</button>
+	
+</div>
